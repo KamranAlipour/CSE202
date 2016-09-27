@@ -26,24 +26,47 @@ auto generate()
 	}
 	return 0; /* determines successful termination*/
 } 
-auto balance() // this functions changes the brackets (minimum number of changes) to make the string balanced
+auto balance1() // this functions changes the brackets (minimum number of changes) to make the string balanced
 {
-	auto brackets = 0; // if a bracket opens this inetegr goes one up and if a bracket closes it goes one down.
+	char r[len+1]; // stores the result of balance
+	auto brackets = 0; // the total number of brackets
+	auto passed_brackets = 0; // the number of brackets passed so far
+
+	/* First we count the number of brackets in the string*/
+	for (int i = 0; i < len; ++i)
+		if (s[i] == '{' || s[i] == '}') brackets++;
+
+	strncpy_s(r, s, len);
+
+	auto dir = 0; // the number of opneded brackets so far - the number of closed brackets so far.
 	for (int i = 0; i < len; ++i)
 	{
-		if (s[i] == '{') brackets++;
-		if (s[i] == '}' && brackets == 0) s[i] = '{';
-		if (s[i] == '}') brackets--;
+		if (r[i] == '}' && dir == 0) r[i] = '{';
+		if (r[i] == '{' && dir == (brackets - passed_brackets)) r[i] = '}';
+		if (r[i] == '}') dir--;
+		if (r[i] == '{') dir++;
+		printf("%d", dir);
+		//printf("%d", brackets - passed_brackets);
+		if (r[i] == '{' || r[i] == '}') passed_brackets++;
 	}
+	printf("\n");
+	printf(r);
+	return r;
 }
 int main()
 {
-	generate();
-	printf(s);
-	printf("\n");
-	balance();
-	printf(s);
-	printf("\n");
+	for (int j = 1; j < 100; j++)
+	{
+		Sleep(300);
+		srand(time(0));
+		generate();
+		printf(s);
+		printf("\n");
+
+		printf("%c", balance1());
+		printf("\n");
+		printf("\n");
+	}
 	system("PAUSE");
 	return 0;
 }
