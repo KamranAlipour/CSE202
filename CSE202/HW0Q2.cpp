@@ -26,7 +26,7 @@ auto generate()
 	}
 	return 0; /* determines successful termination*/
 } 
-auto balance()
+auto balance() // this functions changes the brackets (minimum number of changes) to make the string balanced
 {
 	auto brackets = 0; // if a bracket opens this inetegr goes one up and if a bracket closes it goes one down.
 	for (int i = 0; i < len; ++i)
